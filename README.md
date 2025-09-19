@@ -62,3 +62,4 @@ cp .env.example .env
 # Install frontend
 ./vendor/bin/sail npm install
 ./vendor/bin/sail npm run dev
+"# basic" 
