@@ -12,7 +12,7 @@ class AdminProductController extends Controller
     //
     public function index(){
         $this->authorize('viewAny',Product::class);
-        $products = Product::paginate(6);
+        $products = Product::paginate(10);
 
         return view('admin.product.index', compact('products'));
     }

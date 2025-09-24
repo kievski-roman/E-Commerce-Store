@@ -32,9 +32,6 @@ class CheckoutController extends Controller
             return redirect()->route('cart.index')->with('error', 'Корзина пуста');
         }
 
-        // Валидация
-        $request->validate();
-
         // Создаём адрес
         $address = Address::create([
             'user_id' => Auth::id() ?? null,

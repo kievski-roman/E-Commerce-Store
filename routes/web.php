@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
@@ -22,15 +23,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::prefix('admin')->middleware('admin')->group(function () {
-    Route::get('/products', [AdminProductController::class, 'index'])->name('admin.product.index');
-    Route::post('/products', [AdminProductController::class, 'store'])->name('admin.product.store');
-    Route::get('/products/create', [AdminProductController::class, 'create'])->name('admin.product.create');
-    // maybe delete this route bcs i can use it in index modal window
-    Route::get('/products/{product}/edit', [AdminProductController::class, 'edit'])->name('admin.product.edit');
-    Route::patch('/products/{product}', [AdminProductController::class, 'update'])->name('admin.product.update');
-    Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])->name('admin.product.destroy');
-
+    Route::prefix('products')->group(function () {
+        Route::get('/', [AdminProductController::class, 'index'])->name('admin.product.index');
+        Route::post('/', [AdminProductController::class, 'store'])->name('admin.product.store');
+        Route::get('/create', [AdminProductController::class, 'create'])->name('admin.product.create');
+        // maybe delete this route bcs i can use it in index modal window
+        Route::get('/{product}/edit', [AdminProductController::class, 'edit'])->name('admin.product.edit');
+        Route::patch('/{product}', [AdminProductController::class, 'update'])->name('admin.product.update');
+        Route::delete('/{product}', [AdminProductController::class, 'destroy'])->name('admin.product.destroy');
+    });
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [AdminOrderController::class, 'index'])->name('admin.order.index');
+        Route::delete('/{order}', [AdminOrderController::class, 'destroy'])->name('admin.order.destroy');
+    });
+    Route::get('/payment/{order}', [AdminOrderController::class, 'index'])->name('admin.order.index');
 });
+
+
 Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index');
 });
@@ -52,7 +61,11 @@ Route::prefix('checkout')->group(function () {
     Route::post('/', [CheckoutController::class, 'store'])->name('checkout.store');
 });
 
-
+Route::prefix('order')->group(function () {
+    Route::get('/', [OrderController::class, 'index'])->name('order.index');
+    Route::post('/', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/{order}', [OrderController::class, 'show'])->name('order.show');
+});
 
 
 

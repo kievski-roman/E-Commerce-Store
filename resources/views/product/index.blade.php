@@ -76,6 +76,9 @@
                     </div>
                 @endforeach
             </div>
+            <div class="max-w-60 py-4" >
+                {{$products->links()}}
+            </div>
         </div>
     </div>
 </x-app-layout>

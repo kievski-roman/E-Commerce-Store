@@ -1,6 +1,6 @@
-<x-app-layout>
+<x-guest-layout>
 <h1>
     welcome
 
 </h1>
-    </x-app-layout>
+    </x-guest-layout>

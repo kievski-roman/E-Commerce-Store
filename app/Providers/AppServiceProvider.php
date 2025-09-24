@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Order;
 use App\Models\Product;
 
+use App\Policies\AdminOrdersPolicy;
 use App\Policies\AdminProductPolicy;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -31,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo number_format(($cents)/100, 2, '.', ' ') . ' €'; ?>";
         });
         Gate::policy(Product::class, AdminProductPolicy::class);
+        Gate::policy(Order::class, AdminOrdersPolicy::class);
     }
 
 }

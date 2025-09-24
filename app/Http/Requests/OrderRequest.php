@@ -11,7 +11,7 @@ class OrderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -31,11 +31,7 @@ class OrderRequest extends FormRequest
             'postal_code' => 'nullable|string|max:20',
             'country' => 'required|string|max:100',
             'payment_method' => 'required|in:card,paypal,cash',
-            'card_name' => 'required_if:payment_method,card|string|max:255',
-            'card_number' => 'required_if:payment_method,card|string|max:20',
-            'card_exp_month' => 'required_if:payment_method,card|string|size:2',
-            'card_exp_year' => 'required_if:payment_method,card|string|size:4',
-            'card_cvc' => 'required_if:payment_method,card|string|size:3',
+
             'discount_code' => 'nullable|string|max:50',
         ];
     }

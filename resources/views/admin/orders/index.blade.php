@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="min-w-screen min-h-screen bg-gray-50 py-5">
         <div class="px-5">
-            <h1 class="text-3xl md:text-5xl font-bold text-gray-600">Your Orders</h1>
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-600">Admin Orders</h1>
         </div>
         <div class="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800">
             @if ($orders->isEmpty())
@@ -20,17 +20,32 @@
                                 <p><strong>Payment Method:</strong> {{ ucfirst($order->payment_method) }}</p>
                             </div>
                             <div class="mb-4">
-                                <p><strong>Address:</strong> {{ $order->address->name }}, {{ $order->address->address_line }}, {{ $order->address->city }}, {{ $order->address->country }}</p>
+                                <p><strong>Address:</strong> {{ $order->address->name }}
+                                    , {{ $order->address->address_line }}, {{ $order->address->city }}
+                                    , {{ $order->address->country }}</p>
                             </div>
                             <div>
                                 <h3 class="font-semibold">Items:</h3>
                                 <ul class="list-disc pl-5">
                                     @foreach ($order->items as $item)
-                                        <li>{{ $item->product->name }} - {{ $item->quantity }} x RM {{ number_format($item->price, 2) }}</li>
+                                        <li>{{ $item->product->name }} - {{ $item->quantity }} x
+                                            RM {{ number_format($item->price, 2) }}</li>
                                     @endforeach
                                 </ul>
                             </div>
-                            <a href="{{ route('order.show', $order->id) }}" class="text-blue-600 hover:underline">View Details</a>
+                            <a href="{{ route('order.show', $order->id) }}"
+                               class="text-blue-600 hover:underline">View Details</a>
+                            <a href="{{ route('payment', $order->id) }}"
+                               class="text-blue-600 hover:underline">paid (change status)</a>
+                            <form action="{{route('admin.order.destroy',$order->id)}}"
+                                  method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                        class="w-24 text-center bg-red-600 hover:bg-red-700 text-white font-medium py-3 rounded-lg transition-colors">
+                                    delete
+                                </button>
+                            </form>
                         </div>
                     @endforeach
                 </div>

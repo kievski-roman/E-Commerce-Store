@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Policies\AdminOrdersPolicy;
+use App\Policies\AdminProductPolicy;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
+#[UsePolicy(AdminOrdersPolicy::class)]
 class Order extends Model
 {
     //

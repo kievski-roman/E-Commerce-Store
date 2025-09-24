@@ -22,6 +22,32 @@
                         {{ __('Products') }}
                     </x-nav-link>
 {{----}}
+                    <x-nav-link :href="route('order.index')"
+                                :active="request()->routeIs('order.index')">
+                        {{ __('My orders') }}
+                    </x-nav-link>
+
+
+
+
+                    @can('viewAny',\App\Models\Product::class)
+                        <x-nav-link :href="route('admin.product.index')"
+                                    :active="request()->routeIs('admin.product.index')">
+                            {{ __('Admin') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('viewAny',\App\Models\Order::class)
+                        <x-nav-link :href="route('admin.order.index')"
+                                    :active="request()->routeIs('admin.order.index')">
+                            {{ __('All Orders') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('viewAny',\App\Models\Product::class)
+                    <x-nav-link :href="route('admin.product.create')"
+                                :active="request()->routeIs('admin.product.create')">
+                        {{ __('Create') }}
+                    </x-nav-link>
+                    @endcan
                     <x-nav-link :href="route('cart.index') "
                                 :active="request()->routeIs('cart.index') ">
                         <svg class="w-6 h-6"
@@ -37,22 +63,6 @@
                         <span class="ml-2">{{ session()->get('totalItems', array_sum(array_map(fn($item) => $item['quantity'], session()->get('cart', [])))) }}
             </span>
                     </x-nav-link>
-
-
-
-
-                    @can('viewAny',\App\Models\Product::class)
-                        <x-nav-link :href="route('admin.product.index')"
-                                    :active="request()->routeIs('admin.product.index')">
-                            {{ __('Admin') }}
-                        </x-nav-link>
-                    @endcan
-                    @can('viewAny',\App\Models\Product::class)
-                    <x-nav-link :href="route('admin.product.create')"
-                                :active="request()->routeIs('admin.product.create')">
-                        {{ __('Create') }}
-                    </x-nav-link>
-                    @endcan
                 </div>
             </div>
 

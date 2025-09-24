@@ -2,14 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
     //
     public function index()
     {
-        return view('order.index');
+        if (!Auth::check()) {
+            return redirect()->route('login')->with("error", 'You need to login first');
+        }
+        $orders = Order::query()
+            ->where('user_id', auth()->id())
+            ->with(['address', 'items.product'])
+            ->paginate(8);
+
+        return view('order.index', compact('orders'));
 
     }
 
@@ -22,6 +32,11 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
+    }
+
+    public function show(Order $order)
+    {
+        return view('order.show', compact('order'));
     }
 
 }
