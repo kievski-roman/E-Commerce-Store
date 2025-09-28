@@ -34,9 +34,11 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     });
     Route::prefix('orders')->group(function () {
         Route::get('/', [AdminOrderController::class, 'index'])->name('admin.order.index');
+        Route::get('/{order}', [AdminOrderController::class, 'edit'])->name('admin.order.edit');
+        Route::post('/{order}', [AdminOrderController::class, 'update'])->name('admin.order.update');
         Route::delete('/{order}', [AdminOrderController::class, 'destroy'])->name('admin.order.destroy');
     });
-    Route::get('/payment/{order}', [AdminOrderController::class, 'index'])->name('admin.order.index');
+
 });
 
 

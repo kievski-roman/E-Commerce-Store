@@ -35,8 +35,8 @@
                             </div>
                             <a href="{{ route('order.show', $order->id) }}"
                                class="text-blue-600 hover:underline">View Details</a>
-                            <a href="{{ route('payment', $order->id) }}"
-                               class="text-blue-600 hover:underline">paid (change status)</a>
+                            <a href="{{ route('admin.order.edit', $order->id) }}"
+                               class="text-blue-600 hover:underline">edit</a>
                             <form action="{{route('admin.order.destroy',$order->id)}}"
                                   method="POST">
                                 @csrf

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,9 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
+        $address = Address::query()
+        ->where('address');
+        dd($address);
         return view('order.show', compact('order'));
     }
 

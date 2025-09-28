@@ -23,6 +23,7 @@ class AdminOrderController extends Controller
     public function edit(Order $order)
     {
         $this->authorize('update', $order);
+        return view('admin.orders.edit', compact('order'));
     }
 
     public function update(OrderRequest $request, Order $order)
