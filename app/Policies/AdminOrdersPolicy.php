@@ -50,20 +50,4 @@ class AdminOrdersPolicy
         return $user->hasRole(UserRole::admin->value);
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Order $order): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Order $order): bool
-    {
-        return false;
-    }
-
 }

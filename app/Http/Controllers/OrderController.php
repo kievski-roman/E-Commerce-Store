@@ -9,12 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    //
+    public function __construct()
+    {
+      //  $this->middleware('auth');
+    }
+
     public function index()
     {
-        if (!Auth::check()) {
-            return redirect()->route('login')->with("error", 'You need to login first');
-        }
         $orders = Order::query()
             ->where('user_id', auth()->id())
             ->with(['address', 'items.product'])
@@ -37,9 +38,11 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $address = Address::query()
-        ->where('address');
-        dd($address);
+
+
+        $order
+            ->loadMissing(['address', 'items.product'])
+            ->where('user_id', auth()->id());
         return view('order.show', compact('order'));
     }
 
