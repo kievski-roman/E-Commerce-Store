@@ -27,12 +27,8 @@ class ProductRequest extends FormRequest
             'price' => 'required|integer|between:1,1000000',
             'quantity' => 'required|integer|between:1,1000000',
             'description' => 'required|string|between:5,1999',
-            'image' => [
-                $this->isMethod('post') ? 'required' : 'nullable', // Обязательно только для создания
-                'image',
-                'mimes:jpeg,png,jpg,gif,svg',
-                'max:2048',
-            ],
+            'category_id' => 'required|integer|between:1,1000000',
+            'image' => ['nullable','image','mimes:jpeg,png,jpg,gif,svg','max:2048'],
         ];
     }
 }

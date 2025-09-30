@@ -1,71 +1,40 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminProductController;
-use App\Http\Controllers\Admin\AdminOrderController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProfileController;
+
+use App\Http\Controllers\Api\V1\Admin\ProductAdminController;
+use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Support\Facades\Route;
 
+// Публічні ендпоінти
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-Route::prefix('admin')->middleware('admin')->group(function () {
-    Route::prefix('products')->group(function () {
-        Route::get('/', [AdminProductController::class, 'index'])->name('admin.product.index');
-        Route::post('/', [AdminProductController::class, 'store'])->name('admin.product.store');
-        Route::get('/create', [AdminProductController::class, 'create'])->name('admin.product.create');
-        // maybe delete this route bcs i can use it in index modal window
-        Route::get('/{product}/edit', [AdminProductController::class, 'edit'])->name('admin.product.edit');
-        Route::patch('/{product}', [AdminProductController::class, 'update'])->name('admin.product.update');
-        Route::delete('/{product}', [AdminProductController::class, 'destroy'])->name('admin.product.destroy');
-    });
-    Route::prefix('orders')->group(function () {
-        Route::get('/', [AdminOrderController::class, 'index'])->name('admin.order.index');
-        Route::get('/{order}', [AdminOrderController::class, 'edit'])->name('admin.order.edit');
-        Route::post('/{order}', [AdminOrderController::class, 'update'])->name('admin.order.update');
-        Route::delete('/{order}', [AdminOrderController::class, 'destroy'])->name('admin.order.destroy');
-    });
-
+Route::apiResource('products', ProductController::class);
+// routes/api.php
+Route::get('categories/tree', function () {
+    return \App\Http\Resources\CategoryResource::collection(
+        \App\Models\Category::with('childrenRecursive')
+            ->whereNull('parent_id')
+            ->orderBy('position')
+            ->get()
+    );
 });
 
-
-Route::prefix('product')->group(function () {
-    Route::get('/', [ProductController::class, 'index'])->name('product.index');
-});
-
-Route::prefix('cart')->group(function () {
-    Route::get('/', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/{product}', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
-    Route::post('/', [CartController::class, 'clear'])->name('cart.clear');
-});
-
-Route::prefix('order')->group(function () {
-    Route::get('/', [OrderController::class, 'index'])->name('order.index');
-    Route::post('/', [OrderController::class, 'store'])->name('order.store');
-    Route::get('/{order}', [OrderController::class, 'show'])->name('order.show');
-});
-Route::prefix('checkout')->group(function () {
-    Route::get('/', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/', [CheckoutController::class, 'store'])->name('checkout.store');
-});
-
-Route::prefix('order')->group(function () {
-    Route::get('/', [OrderController::class, 'index'])->name('order.index');
-    Route::post('/', [OrderController::class, 'store'])->name('order.store');
-    Route::get('/{order}', [OrderController::class, 'show'])->name('order.show');
-});
-
-
-require __DIR__ . '/auth.php';
+// Захищені (авторизовані) ендпоінти
+//Route::middleware('auth:sanctum')->group(function () {
+//// Кошик
+//Route::get('cart', [CartController::class, 'show']);
+//Route::post('cart/items', [CartController::class, 'store']);
+//Route::put('cart/items/{item}', [CartController::class, 'update']);
+//Route::delete('cart/items/{item}', [CartController::class, 'destroy']);
+//Route::delete('cart', [CartController::class, 'clear']);
+//
+//// Замовлення/чекаут
+//Route::post('orders', [OrderController::class, 'store']);
+//Route::get('orders', [OrderController::class, 'index']);
+//Route::get('orders/{order}', [OrderController::class, 'show']);
+//Route::post('checkout', [CheckoutController::class, 'store']);
+//
+//// Адмінка (приклад: політика/гейт чи middleware 'admin')
+//Route::middleware('can:manage-products')->group(function () {
+//Route::apiResource('admin/products', AdminProductController::class)->except(['show']);
+//});
+//});
