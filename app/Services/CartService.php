@@ -58,7 +58,37 @@ class CartService
             }
             return $cart->fresh(['items.product']);
         });
+    }
 
+    public function updateItem(Cart $cart, int $productId, int $qty): Cart
+    {
+
+        return DB::transaction(function () use ($cart, $productId, $qty) {
+            $qty = max(1, min($qty, 100));
+            $product = Product::lockForUpdate()->findOrFail($productId);
+
+            $item = CartItem::where('cart_id', $cart->id)
+                ->where('product_id', $product->id)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+        if($qty > $product->quantity){
+            abort(422, 'Product out of stock');
+        }
+        $item->quantity = $qty;
+        $item->save();
+        return $cart->fresh(['items.product']);
+        });
+    }
+    public function deleteItem(Cart $cart, int $productId): Cart
+    {
+        $cart->items()->where('product_id', $productId)->delete();
+        return $cart->fresh(['items.product']);
+    }
+    public function deleteAllItems(Cart $cart): Cart
+    {
+        $cart->items()->delete();
+        return $cart->fresh(['items.product']);
     }
 
 }

@@ -21,14 +21,11 @@ class CartController extends Controller
 
         return new CartResource($cart->load('items.product'));
     }
-    public function store (string $uuid,Request $request, CartService $service)
+    public function clear(string $uuid ,Request $request, CartService $service)
     {
-        $data = $request->validate([
-            'quantity' => 'required|integer|min:1',
-            'product_id' => 'required|integer|exists:products,id'
-        ]);
         $cart = $service->ensure($uuid, $request->user());
-        $cart = $service->addItem($cart, $data['product_id'], $data['quantity']);
-        return (new CartResource($cart))
-            ->response()->setStatusCode(201);    }
+        $cart = $service->deleteAllItems($cart);
+        return new CartResource($cart->load('items.product'));
+    }
+
 }
