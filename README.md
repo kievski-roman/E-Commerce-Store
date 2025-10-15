@@ -129,5 +129,8 @@ This project is open-sourced under the [MIT License](LICENSE).
 
 ---
 
-## 📸 Preview
-_(Add screenshots or GIFs of catalog, cart, and checkout here)_
+## 📸 Preview<img <img width="1828" height="830" alt="Снимок экрана 2025-10-15 190930" src="https://github.com/user-attachments/assets/cc1e5d4e-7bd2-4111-a8fb-ab728df9ce67" />
+width="1697" heigh<img width="1856" height="891" alt="Снимок экрана 2025-10-15 191013" src="https://github.com/user-attachments/assets/fc2321b0-7a34-4439-9a9a-edf335ff4aea" />
+t="855" alt="Снимок экрана 2025-10-15 190920" src="https://github.com/user-attachments/assets/bf907c90-2a25-472f-8917-f0b8682358f7" />
+
+
