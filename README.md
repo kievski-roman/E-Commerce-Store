@@ -1,5 +1,9 @@
 # 🛍️ Laravel E-Commerce MVP
 
+![PHP](https://img.shields.io/badge/PHP-8.3-blue)
+![Laravel](https://img.shields.io/badge/Laravel-12-red)
+![MySQL](https://img.shields.io/badge/MySQL-8-orange)
+
 An educational **MVP e-commerce project** built with **Laravel 12 + Sail (Docker)**.  
 The goal was to design a scalable, well-structured shop backend with **clean architecture**, **state machines using Enums**, and a **minimal responsive UI** powered by **TailwindCSS**.
 
@@ -29,6 +33,18 @@ The goal was to design a scalable, well-structured shop backend with **clean arc
 - `OrderStatus`: Cart → Pending → Paid → Completed → Cancelled  
 - `PaymentStatus`: Pending → Paid → Refunded → Failed  
 - `ShipmentStatus`: None → Processing → Shipped → Delivered  
+
+```mermaid
+stateDiagram-v2
+    [*] --> Cart
+    Cart --> Pending: checkout()
+    Pending --> Paid: paymentSuccess()
+    Pending --> Cancelled: cancel()
+    Paid --> Completed: fulfill()
+    Paid --> Refunded: refund()
+    Completed --> [*]
+    Cancelled --> [*]
+```
 
 ### 🧑‍💻 Admin Panel
 - View and manage orders  
@@ -128,6 +144,7 @@ Feature tests cover checkout, cart, and order transitions.
 This project is open-sourced under the [MIT License](LICENSE).
 
 ---
+
 
 ## 📸 Preview
 <img width="1697" height="855" alt="Снимок экрана 2025-10-15 190920" src="https://github.com/user-attachments/assets/e38acec6-12a3-45c4-a7af-a59d8537bb5d" />
