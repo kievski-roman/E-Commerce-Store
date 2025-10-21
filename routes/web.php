@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -21,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+
 Route::prefix('admin')->middleware('admin')->group(function () {
     Route::prefix('products')->group(function () {
         Route::get('/', [AdminProductController::class, 'index'])->name('admin.product.index');
@@ -69,6 +70,18 @@ Route::prefix('order')->group(function () {
     Route::get('/{order}', [OrderController::class, 'show'])->name('order.show');
 });
 
+Route::prefix('chat')->group(function () {
+    Route::get('/', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('/message', [ChatController::class, 'feed'])->name('chat.feed');
+    Route::post('/send', [ChatController::class, 'send'])->name('chat.send');
+
+    Route::prefix('/manager')->middleware('admin')->group(function () {
+        Route::get('/', [ChatController::class, 'indexManager'])->name('chat.manager');
+    });
+
+});
+
+});
 
 
 require __DIR__.'/auth.php';
