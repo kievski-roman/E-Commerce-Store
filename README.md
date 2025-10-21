@@ -148,8 +148,8 @@ This project is open-sourced under the [MIT License](LICENSE).
 
 ## 📸 Preview
 <img width="1697" height="855" alt="Снимок экрана 2025-10-15 190920" src="https://github.com/user-attachments/assets/e38acec6-12a3-45c4-a7af-a59d8537bb5d" />
-<img <img width="1828" height="830" alt="Снимок экрана 2025-10-15 190930" src="https://github.com/user-attachments/assets/cc1e5d4e-7bd2-4111-a8fb-ab728df9ce67" />
-<img width="1856" height="891" alt="Снимок экрана 2025-10-15 191013" src="https://github.com/user-attachments/assets/fc2321b0-7a34-4439-9a9a-edf335ff4aea" />
-
-
+<img width="877" height="561" alt="Снимок экрана 2025-10-21 145241" src="https://github.com/user-attachments/assets/e3e7b4a7-5753-466a-a415-f97acf7e5034" />
+<img width="1856" height="891" alt="Снимок экрана 2025-10-15 191013" src="https://github.com/user-attachments/assets/b83c35ff-ec9f-4f09-bdda-a70564e6d3be" />
+<img width="908" height="631" alt="Снимок экрана 2025-10-21 145311" src="https://github.com/user-attachments/assets/d282d0d3-e6fe-45f9-a748-7fec1eb70f01" />
+<img width="1483" height="914" alt="Снимок экрана 2025-10-21 145324" src="https://github.com/user-attachments/assets/bec400a3-b7a3-4df1-9874-f15eac2ca4f9" />
 
