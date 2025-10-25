@@ -8,3 +8,6 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('chat', function ($user) {
     return (bool) $user;
 });
+Broadcast::channel('support', function ($user) {
+    return (string) $user->role === 'manager    ';
+});

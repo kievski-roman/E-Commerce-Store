@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Routing\Route;
 
 class OrderItem extends Model
 {
@@ -17,3 +19,4 @@ class OrderItem extends Model
         return $this->belongsTo(Product::class);
     }
 }
+

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
+use App\Mail\OrderMail;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -70,7 +72,7 @@ class CheckoutController extends Controller
         // Очищаем корзину
         session()->forget('cart');
         session()->forget('totalItems');
-
+        Mail::to($order->user->email)->send(new OrderMail($order));
         return redirect()->route('order.show', $order->id)->with('success', 'Заказ успешно создан!');
     }
 }

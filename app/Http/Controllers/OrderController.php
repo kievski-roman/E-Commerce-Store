@@ -31,11 +31,6 @@ class OrderController extends Controller
         return view('order.create');
     }
 
-    public function store(Request $request)
-    {
-
-
-    }
 
     public function show(Order $order)
     {

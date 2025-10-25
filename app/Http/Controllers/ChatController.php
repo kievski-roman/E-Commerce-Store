@@ -15,14 +15,13 @@ class ChatController extends Controller
 
         return view('chat.index');
     }
-    public function indexManager(request $request)
-    {
-        $user = $request->user();
-        return view('chat.indexManager', ['user' => $user]);
-    }
+
 
     public function feed(Request $request)
     {
+        $user = $request->user();
+
+
         // Вернём последние 50 с пользователями
         $messages = Message::with('user:id,name')
             ->latest()->take(50)->get()->reverse()->values();

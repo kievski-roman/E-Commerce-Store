@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -19,7 +20,7 @@ class MessageSent implements ShouldBroadcast
 
     public function broadcastOn(): array
     {
-        return [new PrivateChannel('chat')];
+        return [new Channel('chat')];
     }
 
     // Удобное короткое имя события для Echo

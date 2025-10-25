@@ -80,7 +80,6 @@ Route::prefix('chat')->group(function () {
     });
 
 });
-
 });
 
 
